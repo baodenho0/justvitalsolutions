@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\LandingPageController;
 use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\ContactController;
 
 // Admin Authentication Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['web']], function () {
@@ -52,4 +55,24 @@ Route::group([
     Route::put('settings/{id}', [SiteSettingController::class, 'update'])->name('settings.update');
     Route::delete('settings/{id}', [SiteSettingController::class, 'destroy'])->name('settings.destroy');
     Route::post('settings/batch', [SiteSettingController::class, 'updateBatch'])->name('settings.update-batch');
+
+    // About Us Page Management
+    Route::get('about-us', [AboutUsController::class, 'index'])->name('about-us.index');
+    Route::get('about-us/edit', [AboutUsController::class, 'edit'])->name('about-us.edit');
+    Route::put('about-us', [AboutUsController::class, 'update'])->name('about-us.update');
+
+    // Services Page Management
+    Route::get('services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('services/edit', [ServiceController::class, 'edit'])->name('services.edit');
+    Route::put('services', [ServiceController::class, 'update'])->name('services.update');
+
+    // Contact Page Management
+    Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::get('contact/edit', [ContactController::class, 'edit'])->name('contact.edit');
+    Route::put('contact', [ContactController::class, 'update'])->name('contact.update');
+
+    // Contact Form Submissions
+    Route::get('contact/submissions', [ContactController::class, 'submissions'])->name('contact.submissions');
+    Route::get('contact/submissions/{id}', [ContactController::class, 'showSubmission'])->name('contact.submissions.show');
+    Route::delete('contact/submissions/{id}', [ContactController::class, 'deleteSubmission'])->name('contact.submissions.delete');
 });

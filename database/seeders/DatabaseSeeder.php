@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\ContactSubmissionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +25,10 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             FoundryTemplateSeeder::class,
             SiteSettingSeeder::class,
+            AboutUsSeeder::class,
+            ServiceSeeder::class,
+            ContactSeeder::class,
+            ContactSubmissionSeeder::class,
         ]);
     }
 }

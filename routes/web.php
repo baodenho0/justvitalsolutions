@@ -3,8 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ContactController;
 
-Route::get('/', [App\Http\Controllers\LandingPageController::class, 'index'])->name('landing-page');
+// Public Routes
+Route::get('/', [LandingPageController::class, 'index'])->name('landing-page');
+Route::get('/about', [AboutUsController::class, 'index'])->name('about');
+Route::get('/services', [ServiceController::class, 'index'])->name('services');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // Authentication Routes
 Auth::routes();

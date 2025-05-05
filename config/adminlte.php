@@ -333,6 +333,36 @@ return [
             'active' =>  ['admin/landing-page', 'admin/landing-page/*', 'regex:@^admin/landing-page/[0-9]+$@'],
         ],
         [
+            'text' => 'About Us Page',
+            'url' => 'admin/about-us',
+            'icon' => 'fas fa-fw fa-info-circle',
+            'active' => ['admin/about-us', 'admin/about-us/*'],
+        ],
+        [
+            'text' => 'Services Page',
+            'url' => 'admin/services',
+            'icon' => 'fas fa-fw fa-briefcase',
+            'active' => ['admin/services', 'admin/services/*'],
+        ],
+        [
+            'text' => 'Contact Page',
+            'url' => 'admin/contact',
+            'icon' => 'fas fa-fw fa-envelope',
+            'active' => ['admin/contact', 'admin/contact/*'],
+            'submenu' => [
+                [
+                    'text' => 'Page Settings',
+                    'url' => 'admin/contact',
+                    'icon' => 'fas fa-fw fa-cog',
+                ],
+                [
+                    'text' => 'Form Submissions',
+                    'url' => 'admin/contact/submissions',
+                    'icon' => 'fas fa-fw fa-inbox',
+                ],
+            ],
+        ],
+        [
             'text' => 'Site Settings',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-cogs',
