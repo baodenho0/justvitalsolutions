@@ -33,12 +33,34 @@
                             <li>
                                 <a href="{{ route('landing-page') }}">Home</a>
                             </li>
-                            <li>
-                                <a href="{{ route('login') }}">Login</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('register') }}">Register</a>
-                            </li>
+                            @guest
+                                <li>
+                                    <a href="{{ route('login') }}">Login</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('register') }}">Register</a>
+                                </li>
+                            @else
+                                <li class="has-dropdown">
+                                    <a href="#">{{ Auth::user()->name }}</a>
+                                    <ul>
+                                        @if(Auth::user()->isAdmin())
+                                        <li>
+                                            <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                                        </li>
+                                        @endif
+                                        <li>
+                                            <a href="{{ route('home') }}">Dashboard</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @endguest
                         @endif
                     </ul>
                 </div>

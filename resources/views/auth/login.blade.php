@@ -1,1 +1,1 @@
-@extends('adminlte::auth.login')
+@extends('auth.foundry-login')

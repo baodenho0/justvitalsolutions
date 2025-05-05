@@ -25,6 +25,14 @@ Route::group([
     // Dashboard
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
+    // User Management
+    Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');
+    Route::get('users/create', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('users.create');
+    Route::post('users', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store');
+    Route::get('users/{id}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('users.edit');
+    Route::put('users/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('users.update');
+    Route::delete('users/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
+
     // Landing Page Management
     Route::get('landing-page/create', [LandingPageController::class, 'create'])->name('landing-page.create');
     Route::get('landing-page', [LandingPageController::class, 'index'])->name('landing-page.index');

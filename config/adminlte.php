@@ -332,6 +332,13 @@ return [
             'icon' => 'fas fa-fw fa-home',
             'active' =>  ['admin/landing-page', 'admin/landing-page/*', 'regex:@^admin/landing-page/[0-9]+$@'],
         ],
+        ['header' => 'USER MANAGEMENT'],
+        [
+            'text' => 'Users',
+            'url' => 'admin/users',
+            'icon' => 'fas fa-fw fa-users',
+            'active' => ['admin/users', 'admin/users/*'],
+        ],
         [
             'text' => 'About Us Page',
             'url' => 'admin/about-us',
