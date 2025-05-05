@@ -2,90 +2,23 @@
 
 @section('content')
     <!-- Page Title -->
-    <section class="page-title page-title-2 image-bg overlay parallax">
-        <div class="background-image-holder">
-            @if($contact->banner_image)
-                <img alt="Background Image" class="background-image" src="{{ asset($contact->banner_image) }}" />
-            @else
-                <img alt="Background Image" class="background-image" src="{{ asset('img/home10.jpg') }}" />
-            @endif
-        </div>
+    <section class="page-title page-title-4 bg-secondary">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h2 class="uppercase mb8">{{ $contact->title }}</h2>
-                    <p class="lead mb0">{{ $contact->subtitle }}</p>
+                    <h3 class="uppercase mb0">{{ $contact->title ?? 'Contact Us' }}</h3>
                 </div>
                 <div class="col-md-6 text-right">
                     <ol class="breadcrumb breadcrumb-2">
                         <li>
                             <a href="{{ route('landing-page') }}">Home</a>
                         </li>
-                        <li class="active">{{ $contact->title }}</li>
+                        <li>
+                            <a href="#">Pages</a>
+                        </li>
+                        <li class="active">{{ $contact->title ?? 'Contact' }}</li>
                     </ol>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Info Section -->
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h4 class="uppercase">Get In Touch</h4>
-                    @if($contact->intro_text)
-                        <p class="lead">{!! $contact->intro_text !!}</p>
-                    @else
-                        <p class="lead">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
-                    @endif
-                    <p>
-                        @if($contact->address)
-                            <strong>Address:</strong> {{ $contact->address }}<br>
-                        @endif
-                        @if($contact->phone)
-                            <strong>Phone:</strong> {{ $contact->phone }}<br>
-                        @endif
-                        @if($contact->email)
-                            <strong>Email:</strong> {{ $contact->email }}<br>
-                        @endif
-                    </p>
-
-                    @if(isset($contact->office_hours) && is_array($contact->office_hours) && count($contact->office_hours) > 0)
-                        <h4 class="uppercase mt40">Office Hours</h4>
-                        <ul class="list-unstyled">
-                            @foreach($contact->office_hours as $hours)
-                                <li><strong>{{ $hours['day'] ?? 'Day' }}:</strong> {{ $hours['hours'] ?? 'Hours' }}</li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </div>
-
-                @if($contact->show_contact_form)
-                <div class="col-sm-6">
-                    <form class="form-email" action="{{ route('contact.store') }}" method="post" data-success="Thanks for your submission, we will be in touch shortly." data-error="Please fill all required fields.">
-                        @csrf
-                        <h4 class="uppercase">{{ $contact->form_title ?? 'Send a message' }}</h4>
-                        @if($contact->form_description)
-                            <p>{!! $contact->form_description !!}</p>
-                        @endif
-
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
-                        <input type="text" class="form-control" name="name" placeholder="Name" required>
-                        <input type="email" class="form-control" name="email" placeholder="Email Address" required>
-                        <input type="text" class="form-control" name="subject" placeholder="Subject">
-                        <input type="text" class="form-control" name="phone" placeholder="Phone Number">
-                        <input type="text" class="form-control" name="company" placeholder="Company Name">
-                        <textarea class="form-control" name="message" placeholder="Your Message" rows="4" required></textarea>
-                        <button type="submit" class="btn btn-filled btn-primary">Send Message</button>
-                    </form>
-                </div>
-                @endif
             </div>
         </div>
     </section>
@@ -93,11 +26,64 @@
     <!-- Map Section -->
     @if($contact->map_embed_code)
     <section class="p0">
-        <div class="map-holder">
-            <div class="map-canvas" style="height: 400px;">
-                {!! $contact->map_embed_code !!}
-            </div>
+        <div class="map-holder pt160 pb160">
+            {!! $contact->map_embed_code !!}
+        </div>
+    </section>
+    @else
+    <section class="p0">
+        <div class="map-holder pt160 pb160">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3149.4086040735224!2d144.976411!3d-37.87412599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad66889faebddf1%3A0xcc68084b44a30620!2sRiva+St+Kilda!5e0!3m2!1sen!2sau!4v1427779902899"></iframe>
         </div>
     </section>
     @endif
+
+    <!-- Contact Info Section -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-5">
+                    <h4 class="uppercase">{{ $contact->info_title ?? 'Get In Touch' }}</h4>
+                    @if($contact->intro_text)
+                        <p>{!! $contact->intro_text !!}</p>
+                    @else
+                        <p>
+                            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
+                        </p>
+                    @endif
+                    <hr>
+                    <p>
+                        @if($contact->address)
+                            {{ $contact->address }}
+                        @else
+                            438 Marine Parade<br>
+                            Elwood, Victoria<br>
+                            P.O Box 3184
+                        @endif
+                    </p>
+                    <hr>
+                    <p>
+                        <strong>E:</strong> {{ $contact->email ?? 'hello@foundry.net' }}<br>
+                        <strong>P:</strong> {{ $contact->phone ?? '+614 3948 2726' }}<br>
+                    </p>
+                </div>
+
+                <div class="col-sm-6 col-md-5 col-md-offset-1">
+                    <form class="form-email" action="{{ route('contact.store') }}" method="post" data-success="Thanks for your submission, we will be in touch shortly." data-error="Please fill all fields correctly.">
+                        @csrf
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        <input type="text" class="validate-required" name="name" placeholder="Your Name" required />
+                        <input type="text" class="validate-required validate-email" name="email" placeholder="Email Address" required />
+                        <textarea class="validate-required" name="message" rows="4" placeholder="Message" required></textarea>
+                        <button type="submit" class="btn btn-filled">{{ $contact->button_text ?? 'Send Message' }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection
