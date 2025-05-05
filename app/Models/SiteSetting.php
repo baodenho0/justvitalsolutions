@@ -39,7 +39,8 @@ class SiteSetting extends Model
                 return (float) $setting->value;
             case 'array':
             case 'json':
-                return ($setting->value);
+                $decoded = json_decode($setting->value, true);
+                return is_null($decoded) ? [] : $decoded;
             default:
                 return $setting->value;
         }

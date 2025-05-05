@@ -2,9 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{{ $settings['site_name'] ?? 'Laravel Admin Project' }}</title>
+        <title>{{ setting('site_name', 'Laravel Admin Project') }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="{{ $settings['site_description'] ?? '' }}">
+        <meta name="description" content="{{ setting('site_description', '') }}">
 
         <!-- Styles -->
         <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
@@ -21,8 +21,8 @@
         <link href="{{ asset('css/font-roboto.css') }}" rel="stylesheet" type="text/css">
 
         <!-- Favicon -->
-        @if(isset($settings['site_favicon']))
-        <link rel="icon" href="{{ asset( $settings['site_favicon']) }}" type="image/x-icon">
+        @if(setting('site_favicon'))
+        <link rel="icon" href="{{ asset(setting('site_favicon')) }}" type="image/x-icon">
         @endif
     </head>
     <body class="btn-rounded scroll-assist">

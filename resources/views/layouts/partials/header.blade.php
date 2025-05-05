@@ -4,14 +4,14 @@
         <div class="nav-bar">
             <div class="module left">
                 <a href="{{ route('landing-page') }}">
-                    @if(isset($settings['site_logo_light']))
-                    <img class="logo logo-light" alt="{{ $settings['site_name'] ?? 'Logo' }}" src="{{ asset( $settings['site_logo_light']) }}" />
+                    @if(setting('site_logo_light'))
+                    <img class="logo logo-light" alt="{{ setting('site_name', 'Logo') }}" src="{{ asset(setting('site_logo_light')) }}" />
                     @else
                     <img class="logo logo-light" alt="Logo" src="{{ asset('img/logo-light.png') }}" />
                     @endif
 
-                    @if(isset($settings['site_logo_dark']))
-                    <img class="logo logo-dark" alt="{{ $settings['site_name'] ?? 'Logo' }}" src="{{ asset( $settings['site_logo_dark']) }}" />
+                    @if(setting('site_logo_dark'))
+                    <img class="logo logo-dark" alt="{{ setting('site_name', 'Logo') }}" src="{{ asset(setting('site_logo_dark')) }}" />
                     @else
                     <img class="logo logo-dark" alt="Logo" src="{{ asset('img/logo-dark.png') }}" />
                     @endif
@@ -23,8 +23,8 @@
             <div class="module-group right">
                 <div class="module left">
                     <ul class="menu">
-                        @if(isset($settings['menu_items']) && is_array($menuItems = json_decode($settings['menu_items'], true)))
-                            @foreach($menuItems as $item)
+                        @if(setting('menu_items'))
+                            @foreach(setting('menu_items') as $item)
                             <li>
                                 <a href="{{ $item['url'] ?? '#' }}">{{ $item['text'] ?? 'Menu Item' }}</a>
                             </li>

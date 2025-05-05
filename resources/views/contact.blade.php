@@ -2,7 +2,14 @@
 
 @section('content')
     <!-- Page Title -->
-    <section class="page-title page-title-4 bg-secondary">
+    <section class="page-title page-title-4 image-bg overlay parallax">
+        <div class="background-image-holder">
+            @if($contact->banner_image)
+                <img alt="Background Image" class="background-image" src="{{ asset($contact->banner_image) }}" />
+            @else
+                <img alt="Background Image" class="background-image" src="{{ asset('img/home10.jpg') }}" />
+            @endif
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">

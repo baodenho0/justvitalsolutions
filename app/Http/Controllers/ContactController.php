@@ -26,10 +26,8 @@ class ContactController extends Controller
             ]);
         }
 
-        // Get site settings
-        $settings = $this->getSiteSettings();
-
-        return view('contact', compact('contact', 'settings'));
+        // Settings are now automatically shared with all views
+        return view('contact', compact('contact'));
     }
 
     /**
@@ -52,20 +50,5 @@ class ContactController extends Controller
         return redirect()->back()->with('success', 'Your message has been sent successfully. We\'ll get back to you soon!');
     }
 
-    /**
-     * Get all site settings.
-     */
-    private function getSiteSettings()
-    {
-        return \Illuminate\Support\Facades\Cache::remember('site_settings', 3600, function () {
-            $settings = \App\Models\SiteSetting::all();
-            $result = [];
 
-            foreach ($settings as $setting) {
-                $result[$setting->key] = $setting->getValue($setting->key);
-            }
-
-            return $result;
-        });
-    }
 }
