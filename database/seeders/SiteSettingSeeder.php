@@ -23,7 +23,7 @@ class SiteSettingSeeder extends Seeder
         $menuItems = [
             [
                 'text' => 'Home',
-                'url' => '/home'
+                'url' => '/'
             ],
             [
                 'text' => 'About Us',
@@ -34,17 +34,21 @@ class SiteSettingSeeder extends Seeder
                 'url' => '/services'
             ],
             [
-                'text' => 'Portfolio',
-                'url' => '/portfolio'
-            ],
-            [
                 'text' => 'Blog',
                 'url' => '/blog'
             ],
             [
                 'text' => 'Contact',
                 'url' => '/contact'
-            ]
+            ],
+            [
+                'text' => 'Login',
+                'url' => '/login'
+            ],
+            [
+                'text' => 'Register',
+                'url' => '/register'
+            ],
         ];
         $this->createSetting('menu_items', $menuItems, 'navigation', 'json');
 

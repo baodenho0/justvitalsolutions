@@ -1,0 +1,48 @@
+<div class="nav-container">
+    <a id="top"></a>
+    <nav class="absolute transparent">
+        <div class="nav-bar">
+            <div class="module left">
+                <a href="{{ route('landing-page') }}">
+                    @if(isset($settings['site_logo_light']))
+                    <img class="logo logo-light" alt="{{ $settings['site_name'] ?? 'Logo' }}" src="{{ asset( $settings['site_logo_light']) }}" />
+                    @else
+                    <img class="logo logo-light" alt="Logo" src="{{ asset('img/logo-light.png') }}" />
+                    @endif
+
+                    @if(isset($settings['site_logo_dark']))
+                    <img class="logo logo-dark" alt="{{ $settings['site_name'] ?? 'Logo' }}" src="{{ asset( $settings['site_logo_dark']) }}" />
+                    @else
+                    <img class="logo logo-dark" alt="Logo" src="{{ asset('img/logo-dark.png') }}" />
+                    @endif
+                </a>
+            </div>
+            <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
+                <i class="ti-menu"></i>
+            </div>
+            <div class="module-group right">
+                <div class="module left">
+                    <ul class="menu">
+                        @if(isset($settings['menu_items']) && is_array($menuItems = json_decode($settings['menu_items'], true)))
+                            @foreach($menuItems as $item)
+                            <li>
+                                <a href="{{ $item['url'] ?? '#' }}">{{ $item['text'] ?? 'Menu Item' }}</a>
+                            </li>
+                            @endforeach
+                        @else
+                            <li>
+                                <a href="{{ route('landing-page') }}">Home</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('login') }}">Login</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('register') }}">Register</a>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
