@@ -160,14 +160,54 @@ class SiteSettingController extends Controller
     {
         $settings = $request->except('_token', '_method', 'group');
         $group = $request->input('group', 'general');
+        $fileKeys = [];
 
+        // First, handle file uploads
         foreach ($settings as $key => $value) {
+            // Check if this is a file upload field (ends with _file)
+            if (Str::endsWith($key, '_file') && $request->hasFile($key)) {
+                $originalKey = Str::beforeLast($key, '_file');
+                $setting = SiteSetting::where('key', $originalKey)->first();
+
+                if ($setting && $setting->type === 'image') {
+                    // Delete old image if exists
+                    if ($setting->value) {
+                        Storage::delete('public/' . $setting->value);
+                    }
+
+                    // Upload new image
+                    $path = $this->uploadImage($request->file($key), 'settings');
+                    $setting->update(['value' => $path]);
+
+                    // Add to processed keys
+                    $fileKeys[] = $originalKey;
+                }
+            }
+        }
+
+        // Get all boolean settings for this group to handle unchecked checkboxes
+        $booleanSettings = SiteSetting::where('group', $group)
+            ->where('type', 'boolean')
+            ->get();
+
+        // Set all boolean settings to 0 first (unchecked)
+        foreach ($booleanSettings as $boolSetting) {
+            $boolSetting->update(['value' => '0']);
+        }
+
+        // Then handle other settings
+        foreach ($settings as $key => $value) {
+            // Skip file upload fields and already processed keys
+            if (Str::endsWith($key, '_file') || in_array($key, $fileKeys)) {
+                continue;
+            }
+
             $setting = SiteSetting::where('key', $key)->first();
 
             if ($setting) {
                 // Handle different types of settings
                 if ($setting->type === 'boolean') {
-                    $value = isset($value) ? '1' : '0';
+                    $value = '1'; // If it's in the request, it's checked
                 } elseif ($setting->type === 'json' && is_array($value)) {
                     $value = json_encode($value);
                 }
@@ -181,15 +221,5 @@ class SiteSettingController extends Controller
 
         return redirect()->route('admin.settings.index', ['group' => $group])
             ->with('success', 'Settings updated successfully.');
-    }
-
-    /**
-     * Upload an image and return the path.
-     */
-    private function uploadImage($image, $folder)
-    {
-        $filename = Str::random(20) . '.' . $image->getClientOriginalExtension();
-        $path = $image->storeAs("uploads/{$folder}", $filename, 'public');
-        return $path;
     }
 }

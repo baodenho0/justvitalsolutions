@@ -60,10 +60,10 @@ Route::group([
     Route::get('settings', [SiteSettingController::class, 'index'])->name('settings.index');
     Route::get('settings/create', [SiteSettingController::class, 'create'])->name('settings.create');
     Route::post('settings', [SiteSettingController::class, 'store'])->name('settings.store');
-    Route::get('settings/{id}/edit', [SiteSettingController::class, 'edit'])->name('settings.edit');
-    Route::put('settings/{id}', [SiteSettingController::class, 'update'])->name('settings.update');
-    Route::delete('settings/{id}', [SiteSettingController::class, 'destroy'])->name('settings.destroy');
     Route::post('settings/batch', [SiteSettingController::class, 'updateBatch'])->name('settings.update-batch');
+    Route::get('settings/{setting}/edit', [SiteSettingController::class, 'edit'])->name('settings.edit');
+    Route::put('settings/{setting}', [SiteSettingController::class, 'update'])->name('settings.update');
+    Route::delete('settings/{setting}', [SiteSettingController::class, 'destroy'])->name('settings.destroy');
 
     // About Us Page Management
     Route::get('about-us', [AboutUsController::class, 'index'])->name('about-us.index');

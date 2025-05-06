@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('admin.layouts.admin')
 
 @section('title',
     $section->section_type === 'showcase' ? 'Manage Showcases' :
@@ -359,19 +359,10 @@
     </div>
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('page_css')
+    <!-- Additional features-specific CSS can go here -->
 @stop
 
-@section('js')
-<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
-    <script>
-        $(function () {
-            // Enable custom file input
-            bsCustomFileInput.init();
-
-            // Enable tooltips
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+@section('page_js')
+    <!-- Additional features-specific JS can go here -->
 @stop

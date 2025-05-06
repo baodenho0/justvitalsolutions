@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('admin.layouts.admin')
 
 @section('title', 'Site Settings')
 
@@ -164,29 +164,9 @@
                                                             </button>
                                                         </div>
 
-                                                        <!-- Delete Modal -->
-                                                        <div class="modal fade" id="deleteModal{{ $setting->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        Are you sure you want to delete the setting "{{ $setting->key }}"?
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                                        <form action="{{ route('admin.settings.destroy', $setting) }}" method="POST" style="display: inline;">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                        <!-- Delete Modal Button -->
+                                                        <div id="delete-button-container-{{ $setting->id }}">
+                                                            <!-- This div will be used to store the ID for the modal reference -->
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -204,19 +184,43 @@
             </div>
         </div>
     </div>
+
+    <!-- Delete Modals - Outside of the main form -->
+    @foreach($siteSettings as $setting)
+        <div class="modal fade" id="deleteModal{{ $setting->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the setting "{{ $setting->key }}"?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <form action="{{ route('admin.settings.destroy', $setting) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('page_css')
+    <!-- Additional settings-specific CSS can go here -->
 @stop
 
-@section('js')
+@section('page_js')
     <script>
         $(function () {
-            // Enable custom file input
-            bsCustomFileInput.init();
-
-            // Menu items functionality
+            // Menu items functionality - specific to this page
             @php
                 $menuItemsSetting = $siteSettings->where('key', 'menu_items')->first();
                 $menuItems = [];
@@ -236,17 +240,24 @@
             @endphp
             let menuItemIndex = {{ $menuItemCount }};
 
+            // Add menu item functionality
             $('#add-menu-item').on('click', function() {
-                const template = $('#menu-item-template').html().replace(/INDEX/g, menuItemIndex++);
-                $('#menu-items-container').append(template);
+                const template = $('#menu-item-template').html();
+                const newItem = template.replace(/INDEX/g, menuItemIndex);
+                $('#menu-items-container').append(newItem);
+                menuItemIndex++;
             });
 
+            // Remove menu item functionality
             $(document).on('click', '.remove-menu-item', function() {
                 $(this).closest('.menu-item-row').remove();
             });
 
-            // Flash message auto-hide
-            $('.alert-dismissible').fadeTo(5000, 500).slideUp(500);
+            // Initialize file input for image uploads
+            $('.custom-file-input').on('change', function() {
+                let fileName = $(this).val().split('\\').pop();
+                $(this).next('.custom-file-label').addClass("selected").html(fileName);
+            });
         });
     </script>
 @stop

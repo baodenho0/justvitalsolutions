@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('admin.layouts.admin')
 
 @section('title', 'Admin Dashboard')
 
@@ -236,16 +236,13 @@
     </div>
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('page_css')
+    <!-- Additional dashboard-specific CSS can go here -->
 @stop
 
-@section('js')
+@section('page_js')
     <script>
         $(function () {
-            // Initialize the dashboard components
-            $('[data-toggle="tooltip"]').tooltip();
-
             // Add event listeners for the todo list
             $('.todo-list').on('click', '.fa-edit', function() {
                 alert('Edit functionality would go here');

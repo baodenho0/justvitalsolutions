@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('admin.layouts.admin')
 
 @section('title', 'Landing Page Sections')
 

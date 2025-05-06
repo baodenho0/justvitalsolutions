@@ -381,11 +381,6 @@ return [
                     'active' => ['admin/blog/posts', 'admin/blog/posts/*'],
                 ],
                 [
-                    'text' => 'Add New Post',
-                    'url' => 'admin/blog/posts/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                ],
-                [
                     'text' => 'Categories',
                     'url' => 'admin/blog/categories',
                     'icon' => 'fas fa-fw fa-tags',

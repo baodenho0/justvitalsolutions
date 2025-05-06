@@ -280,19 +280,6 @@ class LandingPageController extends Controller
     }
 
     /**
-     * Upload an image and return the path.
-     */
-    private function uploadImage($image, $folder)
-    {
-        $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-        $extension = $image->getClientOriginalExtension();
-        $random = Str::random(8);
-        $filename = $originalName . '_' . $random . '.' . $extension;
-        $path = $image->move("uploads/{$folder}", $filename, 'public');
-        return $path;
-    }
-
-    /**
      * Manage features for a section.
      */
     public function features($id)
