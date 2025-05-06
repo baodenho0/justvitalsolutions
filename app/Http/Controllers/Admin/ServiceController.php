@@ -75,6 +75,23 @@ class ServiceController extends Controller
             $validated['service_items'] = $serviceItems;
         }
 
+        // Handle process steps
+        if ($request->has('process_steps')) {
+            $processSteps = [];
+            foreach ($request->process_steps as $key => $step) {
+                if (!empty($step['title'])) {
+                    $processStep = [
+                        'title' => $step['title'],
+                        'description' => $step['description'] ?? '',
+                        'icon' => $step['icon'] ?? 'ti-package',
+                    ];
+
+                    $processSteps[] = $processStep;
+                }
+            }
+            $validated['process_steps'] = $processSteps;
+        }
+
         // Update or create the services page
         $service = \App\Models\Service::first();
         if ($service) {

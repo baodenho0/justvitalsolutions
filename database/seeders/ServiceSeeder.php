@@ -58,6 +58,23 @@ class ServiceSeeder extends Seeder
                     'image' => 'storage/services/consulting.jpg',
                 ],
             ],
+            'process_steps' => [
+                [
+                    'title' => 'Research & Ideate',
+                    'description' => 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.',
+                    'icon' => 'ti-agenda',
+                ],
+                [
+                    'title' => 'Design & Iterate',
+                    'description' => 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.',
+                    'icon' => 'ti-pencil-alt2',
+                ],
+                [
+                    'title' => 'Ship & Support',
+                    'description' => 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.',
+                    'icon' => 'ti-package',
+                ],
+            ],
             'show_cta' => true,
             'cta_title' => 'Ready to get started?',
             'cta_description' => 'Contact us today to discuss your project and how we can help you achieve your goals.',

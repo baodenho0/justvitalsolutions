@@ -40,15 +40,7 @@ class SiteSettingSeeder extends Seeder
             [
                 'text' => 'Contact',
                 'url' => '/contact'
-            ],
-            [
-                'text' => 'Login',
-                'url' => '/login'
-            ],
-            [
-                'text' => 'Register',
-                'url' => '/register'
-            ],
+            ]
         ];
         $this->createSetting('menu_items', $menuItems, 'navigation', 'json');
 

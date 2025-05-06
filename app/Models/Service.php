@@ -14,6 +14,7 @@ class Service extends Model
         'banner_image',
         'intro_text',
         'service_items',
+        'process_steps',
         'show_cta',
         'cta_title',
         'cta_description',
@@ -24,6 +25,7 @@ class Service extends Model
 
     protected $casts = [
         'service_items' => 'array',
+        'process_steps' => 'array',
         'show_cta' => 'boolean',
         'is_active' => 'boolean',
     ];

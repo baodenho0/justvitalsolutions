@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="col-sm-6 col-md-5 col-md-offset-1">
-                    <form class="form-email" action="{{ route('contact.store') }}" method="post" data-success="Thanks for your submission, we will be in touch shortly." data-error="Please fill all fields correctly.">
+                    <form action="{{ route('contact.store') }}" method="post" data-success="Thanks for your submission, we will be in touch shortly." data-error="Please fill all fields correctly.">
                         @csrf
                         @if(session('success'))
                             <div class="alert alert-success">

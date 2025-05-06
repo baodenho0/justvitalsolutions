@@ -160,6 +160,80 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
+                                <h4>Process Steps</h4>
+                                <button type="button" class="btn btn-sm btn-primary float-right" id="add-process-step">Add Process Step</button>
+                            </div>
+                            <div class="card-body">
+                                <div id="process-steps-container">
+                                    @if(isset($service->process_steps) && is_array($service->process_steps) && count($service->process_steps) > 0)
+                                        @foreach($service->process_steps as $index => $step)
+                                            <div class="card mb-4 process-step-card">
+                                                <div class="card-header">
+                                                    <h5>Process Step</h5>
+                                                    <button type="button" class="btn btn-sm btn-danger float-right remove-process-step">Remove</button>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Title</label>
+                                                                <input type="text" class="form-control" name="process_steps[{{ $index }}][title]" placeholder="Title" value="{{ $step['title'] ?? '' }}">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Description</label>
+                                                                <textarea class="form-control process-step-description" name="process_steps[{{ $index }}][description]" rows="3" placeholder="Description">{{ $step['description'] ?? '' }}</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>Icon</label>
+                                                                <input type="text" class="form-control" name="process_steps[{{ $index }}][icon]" placeholder="Icon class (e.g., ti-package)" value="{{ $step['icon'] ?? 'ti-package' }}">
+                                                                <small class="form-text text-muted">Use Themify icons (ti-*) or Font Awesome (fa-*)</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="card mb-4 process-step-card">
+                                            <div class="card-header">
+                                                <h5>Process Step</h5>
+                                                <button type="button" class="btn btn-sm btn-danger float-right remove-process-step">Remove</button>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Title</label>
+                                                            <input type="text" class="form-control" name="process_steps[0][title]" placeholder="Title" value="Discovery">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Description</label>
+                                                            <textarea class="form-control process-step-description" name="process_steps[0][description]" rows="3" placeholder="Description">We begin by understanding your business needs and objectives.</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Icon</label>
+                                                            <input type="text" class="form-control" name="process_steps[0][icon]" placeholder="Icon class (e.g., ti-package)" value="ti-search">
+                                                            <small class="form-text text-muted">Use Themify icons (ti-*) or Font Awesome (fa-*)</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
                                 <h4>Call to Action</h4>
                             </div>
                             <div class="card-body">
@@ -211,6 +285,9 @@
         if (typeof CKEDITOR !== 'undefined') {
             CKEDITOR.replace('intro_text');
             $('.service-description').each(function() {
+                CKEDITOR.replace(this);
+            });
+            $('.process-step-description').each(function() {
                 CKEDITOR.replace(this);
             });
         }
@@ -272,6 +349,52 @@
         // Remove service item
         $(document).on('click', '.remove-service-item', function() {
             $(this).closest('.service-item-card').remove();
+        });
+
+        // Add new process step
+        $('#add-process-step').click(function() {
+            const processStepsCount = $('.process-step-card').length;
+            const newProcessStep = `
+                <div class="card mb-4 process-step-card">
+                    <div class="card-header">
+                        <h5>Process Step</h5>
+                        <button type="button" class="btn btn-sm btn-danger float-right remove-process-step">Remove</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" class="form-control" name="process_steps[${processStepsCount}][title]" placeholder="Title">
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea class="form-control new-process-step-description" name="process_steps[${processStepsCount}][description]" rows="3" placeholder="Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Icon</label>
+                                    <input type="text" class="form-control" name="process_steps[${processStepsCount}][icon]" placeholder="Icon class (e.g., ti-package)" value="ti-package">
+                                    <small class="form-text text-muted">Use Themify icons (ti-*) or Font Awesome (fa-*)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $('#process-steps-container').append(newProcessStep);
+
+            // Initialize CKEditor for the new textarea
+            if (typeof CKEDITOR !== 'undefined') {
+                CKEDITOR.replace($('.new-process-step-description').last()[0]);
+                $('.new-process-step-description').removeClass('new-process-step-description');
+            }
+        });
+
+        // Remove process step
+        $(document).on('click', '.remove-process-step', function() {
+            $(this).closest('.process-step-card').remove();
         });
     });
 </script>
