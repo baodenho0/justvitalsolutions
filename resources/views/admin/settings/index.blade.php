@@ -54,7 +54,7 @@
                         @csrf
                         <input type="hidden" name="group" value="{{ $currentGroup }}">
                         <div class="card-body">
-                            @if($settings->isEmpty())
+                            @if($siteSettings->isEmpty())
                                 <div class="alert alert-info">
                                     No settings found in this group. Click "Add New" to create settings.
                                 </div>
@@ -69,7 +69,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($settings as $setting)
+                                            @foreach($siteSettings as $setting)
                                                 <tr>
                                                     <td>
                                                         <strong>{{ ucwords(str_replace('_', ' ', $setting->key)) }}</strong>
@@ -217,8 +217,8 @@
             bsCustomFileInput.init();
 
             // Menu items functionality
-            let menuItemIndex = 0;
-                $menuItemsSetting = $settings->where('key', 'menu_items')->first();
+            @php
+                $menuItemsSetting = $siteSettings->where('key', 'menu_items')->first();
                 $menuItems = [];
 
                 if ($menuItemsSetting && $menuItemsSetting->value) {
@@ -232,9 +232,9 @@
                         $menuItems = $menuItemsSetting->value;
                     }
                 }
-
-                count($menuItems)
-            }};
+                $menuItemCount = count($menuItems);
+            @endphp
+            let menuItemIndex = {{ $menuItemCount }};
 
             $('#add-menu-item').on('click', function() {
                 const template = $('#menu-item-template').html().replace(/INDEX/g, menuItemIndex++);

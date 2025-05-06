@@ -14,7 +14,6 @@
         <link href="{{ asset('css/ytplayer.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link href="{{ asset('css/theme-startup.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css" media="all" />
-        <link href="{{ asset('css/auth-custom.css') }}" rel="stylesheet" type="text/css" media="all" />
 
         <!-- Fonts -->
         <link href='https://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
@@ -50,5 +49,8 @@
         <script src="{{ asset('js/parallax.js') }}"></script>
         <script src="{{ asset('js/scripts.js') }}"></script>
         <script src="{{ asset('js/parallax-init.js') }}"></script>
+
+        <!-- Additional Scripts -->
+        @stack('scripts')
     </body>
 </html>

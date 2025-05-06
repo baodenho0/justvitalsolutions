@@ -98,10 +98,10 @@
                                     <a class="btn btn-sm btn-filled reply-btn" href="#" data-comment-id="{{ $comment->id }}">Reply</a>
                                     @if(auth()->id() === $comment->user_id)
                                     <a class="btn btn-sm edit-btn" href="#" data-comment-id="{{ $comment->id }}">Edit</a>
-                                    <form action="{{ route('blog.comments.destroy', $comment) }}" method="POST" class="d-inline">
+                                    <a class="btn btn-sm delete-btn" href="#" data-comment-id="{{ $comment->id }}" data-delete-url="{{ route('blog.comments.destroy', $comment) }}">Delete</a>
+                                    <form id="delete-form-{{ $comment->id }}" action="{{ route('blog.comments.destroy', $comment) }}" method="POST" style="display: none;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</button>
                                     </form>
                                     @endif
                                     @endauth
@@ -167,10 +167,10 @@
                                             <a class="btn btn-sm btn-filled reply-btn" href="#" data-comment-id="{{ $comment->id }}">Reply</a>
                                             @if(auth()->id() === $reply->user_id)
                                             <a class="btn btn-sm edit-btn" href="#" data-comment-id="{{ $reply->id }}">Edit</a>
-                                            <form action="{{ route('blog.comments.destroy', $reply) }}" method="POST" class="d-inline">
+                                            <a class="btn btn-sm delete-btn" href="#" data-comment-id="{{ $reply->id }}" data-delete-url="{{ route('blog.comments.destroy', $reply) }}">Delete</a>
+                                            <form id="delete-form-{{ $reply->id }}" action="{{ route('blog.comments.destroy', $reply) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</button>
                                             </form>
                                             @endif
                                             @endauth
@@ -263,39 +263,41 @@
 
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    $(document).ready(function() {
         // Reply functionality
-        document.querySelectorAll('.reply-btn').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const commentId = this.getAttribute('data-comment-id');
-                document.getElementById('reply-form-' + commentId).style.display = 'block';
-            });
+        $(document).on('click', '.reply-btn', function(e) {
+            e.preventDefault();
+            var commentId = $(this).data('comment-id');
+            $('#reply-form-' + commentId).show();
         });
 
-        document.querySelectorAll('.cancel-reply').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const commentId = this.getAttribute('data-comment-id');
-                document.getElementById('reply-form-' + commentId).style.display = 'none';
-            });
+        $(document).on('click', '.cancel-reply', function(e) {
+            e.preventDefault();
+            var commentId = $(this).data('comment-id');
+            $('#reply-form-' + commentId).hide();
         });
 
         // Edit functionality
-        document.querySelectorAll('.edit-btn').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const commentId = this.getAttribute('data-comment-id');
-                document.getElementById('edit-comment-' + commentId).style.display = 'block';
-            });
+        $(document).on('click', '.edit-btn', function(e) {
+            e.preventDefault();
+            var commentId = $(this).data('comment-id');
+            $('#edit-comment-' + commentId).show();
         });
 
-        document.querySelectorAll('.cancel-edit').forEach(function(button) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const commentId = this.getAttribute('data-comment-id');
-                document.getElementById('edit-comment-' + commentId).style.display = 'none';
-            });
+        $(document).on('click', '.cancel-edit', function(e) {
+            e.preventDefault();
+            var commentId = $(this).data('comment-id');
+            $('#edit-comment-' + commentId).hide();
+        });
+
+        // Delete functionality
+        $(document).on('click', '.delete-btn', function(e) {
+            e.preventDefault();
+            var commentId = $(this).data('comment-id');
+
+            if (confirm('Are you sure you want to delete this comment?')) {
+                $('#delete-form-' + commentId).submit();
+            }
         });
     });
 </script>

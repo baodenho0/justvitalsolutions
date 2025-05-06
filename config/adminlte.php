@@ -332,13 +332,6 @@ return [
             'icon' => 'fas fa-fw fa-home',
             'active' =>  ['admin/landing-page', 'admin/landing-page/*', 'regex:@^admin/landing-page/[0-9]+$@'],
         ],
-        ['header' => 'USER MANAGEMENT'],
-        [
-            'text' => 'Users',
-            'url' => 'admin/users',
-            'icon' => 'fas fa-fw fa-users',
-            'active' => ['admin/users', 'admin/users/*'],
-        ],
         [
             'text' => 'About Us Page',
             'url' => 'admin/about-us',
@@ -413,32 +406,6 @@ return [
             'url' => 'admin/users',
             'icon' => 'fas fa-fw fa-users',
         ],
-        [
-            'text' => 'Products',
-            'icon' => 'fas fa-fw fa-box',
-            'submenu' => [
-                [
-                    'text' => 'All Products',
-                    'url' => 'admin/products',
-                    'icon' => 'fas fa-fw fa-list',
-                ],
-                [
-                    'text' => 'Add New',
-                    'url' => 'admin/products/create',
-                    'icon' => 'fas fa-fw fa-plus',
-                ],
-                [
-                    'text' => 'Categories',
-                    'url' => 'admin/categories',
-                    'icon' => 'fas fa-fw fa-tags',
-                ],
-            ],
-        ],
-        [
-            'text' => 'Orders',
-            'url' => 'admin/orders',
-            'icon' => 'fas fa-fw fa-shopping-cart',
-        ],
         ['header' => 'ACCOUNT SETTINGS'],
         [
             'text' => 'Profile',
@@ -449,17 +416,6 @@ return [
             'text' => 'Change Password',
             'url' => 'admin/password',
             'icon' => 'fas fa-fw fa-lock',
-        ],
-        ['header' => 'SYSTEM'],
-        [
-            'text' => 'Logs',
-            'url' => 'admin/logs',
-            'icon' => 'fas fa-fw fa-list',
-        ],
-        [
-            'text' => 'Backup',
-            'url' => 'admin/backup',
-            'icon' => 'fas fa-fw fa-database',
         ],
     ],
 

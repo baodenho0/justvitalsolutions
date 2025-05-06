@@ -19,11 +19,11 @@ class SiteSettingController extends Controller
         $groups = SiteSetting::select('group')->distinct()->pluck('group');
         $currentGroup = $request->get('group', 'general');
 
-        $settings = SiteSetting::where('group', $currentGroup)
+        $siteSettings = SiteSetting::where('group', $currentGroup)
             ->orderBy('key')
             ->get();
 
-        return view('admin.settings.index', compact('settings', 'groups', 'currentGroup'));
+        return view('admin.settings.index', compact('siteSettings', 'groups', 'currentGroup'));
     }
 
     /**
