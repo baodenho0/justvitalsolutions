@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use App\Models\BlogPost;
+use App\Models\BlogComment;
+use App\Models\ContactSubmission;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -28,14 +32,45 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
-        // You can add any data you want to pass to the dashboard view here
+        // Get real statistics from the database
+        $blogCount = BlogPost::count();
+        $publishedBlogCount = BlogPost::published()->count();
+        $commentCount = BlogComment::count();
+        $pendingCommentCount = BlogComment::where('is_approved', false)->count();
+        $formSubmissionCount = ContactSubmission::count();
+        $unreadFormSubmissionCount = ContactSubmission::unread()->count();
+        $userCount = User::count();
+
+        // Get recent blog posts
+        $recentBlogs = BlogPost::with(['allComments'])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        // Get recent comments
+        $recentComments = BlogComment::with(['user', 'post'])
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        // Get recent form submissions
+        $recentSubmissions = ContactSubmission::orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
         $data = [
             'stats' => [
-                'orders' => 150,
-                'products' => 53,
-                'users' => 44,
-                'categories' => 65
-            ]
+                'blogs' => $blogCount,
+                'published_blogs' => $publishedBlogCount,
+                'comments' => $commentCount,
+                'pending_comments' => $pendingCommentCount,
+                'form_submissions' => $formSubmissionCount,
+                'unread_submissions' => $unreadFormSubmissionCount,
+                'users' => $userCount
+            ],
+            'recentBlogs' => $recentBlogs,
+            'recentComments' => $recentComments,
+            'recentSubmissions' => $recentSubmissions
         ];
 
         return view('admin.dashboard', $data);
