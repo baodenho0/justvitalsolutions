@@ -376,6 +376,37 @@ return [
             'active' => ['admin/settings', 'admin/settings/*'],
         ],
 
+        ['header' => 'BLOG MANAGEMENT'],
+        [
+            'text' => 'Blog',
+            'icon' => 'fas fa-fw fa-blog',
+            'submenu' => [
+                [
+                    'text' => 'All Posts',
+                    'url' => 'admin/blog/posts',
+                    'icon' => 'fas fa-fw fa-file-alt',
+                    'active' => ['admin/blog/posts', 'admin/blog/posts/*'],
+                ],
+                [
+                    'text' => 'Add New Post',
+                    'url' => 'admin/blog/posts/create',
+                    'icon' => 'fas fa-fw fa-plus',
+                ],
+                [
+                    'text' => 'Categories',
+                    'url' => 'admin/blog/categories',
+                    'icon' => 'fas fa-fw fa-tags',
+                    'active' => ['admin/blog/categories', 'admin/blog/categories/*'],
+                ],
+                [
+                    'text' => 'Comments',
+                    'url' => 'admin/blog/comments',
+                    'icon' => 'fas fa-fw fa-comments',
+                    'active' => ['admin/blog/comments', 'admin/blog/comments/*'],
+                ],
+            ],
+        ],
+
         ['header' => 'USER MANAGEMENT'],
         [
             'text' => 'Users',

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -56,5 +57,21 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->is_admin;
+    }
+
+    /**
+     * Get the blog posts for the user.
+     */
+    public function blogPosts(): HasMany
+    {
+        return $this->hasMany(BlogPost::class);
+    }
+
+    /**
+     * Get the blog comments for the user.
+     */
+    public function blogComments(): HasMany
+    {
+        return $this->hasMany(BlogComment::class);
     }
 }

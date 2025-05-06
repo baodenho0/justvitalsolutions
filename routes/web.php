@@ -6,6 +6,8 @@ use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BlogCommentController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
@@ -19,6 +21,11 @@ Route::get('/about', [AboutUsController::class, 'index'])->name('about');
 Route::get('/services', [ServiceController::class, 'index'])->name('services');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Blog Routes
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/category/{category:slug}', [BlogController::class, 'category'])->name('blog.category');
+Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Authentication Routes - with explicit middleware
 Route::middleware('guest')->group(function () {
@@ -49,11 +56,12 @@ Route::middleware('auth')->group(function () {
     Route::get('email/verify', [App\Http\Controllers\Auth\VerificationController::class, 'show'])->name('verification.notice');
     Route::get('email/verify/{id}/{hash}', [App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('verification.verify')->middleware('signed');
     Route::post('email/resend', [App\Http\Controllers\Auth\VerificationController::class, 'resend'])->name('verification.resend')->middleware('throttle:6,1');
+
+    // Blog Comments - Only authenticated users can comment
+    Route::post('/blog/{post:slug}/comments', [BlogCommentController::class, 'store'])->name('blog.comments.store');
+    Route::put('/blog/comments/{comment}', [BlogCommentController::class, 'update'])->name('blog.comments.update');
+    Route::delete('/blog/comments/{comment}', [BlogCommentController::class, 'destroy'])->name('blog.comments.destroy');
 });
-
-// No duplicate routes needed
-
-
 
 // Include Admin Routes
 require __DIR__.'/admin.php';

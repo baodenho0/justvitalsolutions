@@ -33,6 +33,9 @@
                             <li>
                                 <a href="{{ route('landing-page') }}">Home</a>
                             </li>
+                            <li>
+                                <a href="{{ route('blog.index') }}">Blog</a>
+                            </li>
                             @guest
                                 <li>
                                     <a href="{{ route('login') }}">Login</a>

@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogCommentController;
 
 // Admin Authentication Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['web']], function () {
@@ -53,8 +56,6 @@ Route::group([
     Route::put('testimonials/{id}', [LandingPageController::class, 'updateTestimonial'])->name('testimonials.update');
     Route::delete('testimonials/{id}', [LandingPageController::class, 'destroyTestimonial'])->name('testimonials.destroy');
 
-
-
     // Site Settings
     Route::get('settings', [SiteSettingController::class, 'index'])->name('settings.index');
     Route::get('settings/create', [SiteSettingController::class, 'create'])->name('settings.create');
@@ -83,4 +84,28 @@ Route::group([
     Route::get('contact/submissions', [ContactController::class, 'submissions'])->name('contact.submissions');
     Route::get('contact/submissions/{id}', [ContactController::class, 'showSubmission'])->name('contact.submissions.show');
     Route::delete('contact/submissions/{id}', [ContactController::class, 'deleteSubmission'])->name('contact.submissions.delete');
+
+    // Blog Management
+    // Blog Posts
+    Route::get('blog/posts', [BlogPostController::class, 'index'])->name('blog.posts.index');
+    Route::get('blog/posts/create', [BlogPostController::class, 'create'])->name('blog.posts.create');
+    Route::post('blog/posts', [BlogPostController::class, 'store'])->name('blog.posts.store');
+    Route::get('blog/posts/{post}/edit', [BlogPostController::class, 'edit'])->name('blog.posts.edit');
+    Route::put('blog/posts/{post}', [BlogPostController::class, 'update'])->name('blog.posts.update');
+    Route::delete('blog/posts/{post}', [BlogPostController::class, 'destroy'])->name('blog.posts.destroy');
+
+    // Blog Categories
+    Route::get('blog/categories', [BlogCategoryController::class, 'index'])->name('blog.categories.index');
+    Route::get('blog/categories/create', [BlogCategoryController::class, 'create'])->name('blog.categories.create');
+    Route::post('blog/categories', [BlogCategoryController::class, 'store'])->name('blog.categories.store');
+    Route::get('blog/categories/{category}/edit', [BlogCategoryController::class, 'edit'])->name('blog.categories.edit');
+    Route::put('blog/categories/{category}', [BlogCategoryController::class, 'update'])->name('blog.categories.update');
+    Route::delete('blog/categories/{category}', [BlogCategoryController::class, 'destroy'])->name('blog.categories.destroy');
+
+    // Blog Comments
+    Route::get('blog/comments', [BlogCommentController::class, 'index'])->name('blog.comments.index');
+    Route::get('blog/comments/{comment}', [BlogCommentController::class, 'show'])->name('blog.comments.show');
+    Route::post('blog/comments/{comment}/approve', [BlogCommentController::class, 'approve'])->name('blog.comments.approve');
+    Route::post('blog/comments/{comment}/disapprove', [BlogCommentController::class, 'disapprove'])->name('blog.comments.disapprove');
+    Route::delete('blog/comments/{comment}', [BlogCommentController::class, 'destroy'])->name('blog.comments.destroy');
 });
