@@ -136,9 +136,9 @@ return [
     'usermenu_enabled' => true,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
+    'usermenu_image' => true,
     'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    // 'usermenu_profile_url' => 'admin/profile',
 
     /*
     |--------------------------------------------------------------------------
@@ -406,11 +406,6 @@ return [
             'text' => 'Profile',
             'url' => 'admin/profile',
             'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Change Password',
-            'url' => 'admin/password',
-            'icon' => 'fas fa-fw fa-lock',
         ],
     ],
 

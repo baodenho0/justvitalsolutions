@@ -23,10 +23,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['web']], f
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
-    'middleware' => ['web', 'admin']
+    'middleware' => ['web', 'auth', 'admin']
 ], function () {
     // Dashboard
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
+    // Profile Management
+    Route::get('profile', [AdminController::class, 'profile'])->name('profile');
+    Route::put('profile', [AdminController::class, 'updateProfile'])->name('profile.update');
+    Route::get('change-password', [AdminController::class, 'changePassword'])->name('change-password');
+    Route::put('change-password', [AdminController::class, 'updatePassword'])->name('change-password.update');
 
     // User Management
     Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('users.index');

@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'password',
         'is_admin',
     ];
@@ -73,5 +74,35 @@ class User extends Authenticatable
     public function blogComments(): HasMany
     {
         return $this->hasMany(BlogComment::class);
+    }
+
+    /**
+     * Get the profile URL for the user.
+     *
+     * @return string
+     */
+    public function adminlte_profile_url()
+    {
+        return route('admin.profile');
+    }
+
+    /**
+     * Get the profile image URL for the user.
+     *
+     * @return string
+     */
+    public function adminlte_image()
+    {
+        return $this->avatar ? asset($this->avatar) : asset('vendor/adminlte/dist/img/user2-160x160.jpg');
+    }
+
+    /**
+     * Get the description for the user.
+     *
+     * @return string
+     */
+    public function adminlte_desc()
+    {
+        return $this->isAdmin() ? 'Administrator' : 'User';
     }
 }
