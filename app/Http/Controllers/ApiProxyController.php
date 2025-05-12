@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class ApiProxyController extends Controller
 {
-    protected $targetUrl = 'https://app.getjustvital.com';
+    protected $targetUrl = 'https://getjustvital.com/api';
 
     public function proxyRequest(Request $request, $path = '')
     {
