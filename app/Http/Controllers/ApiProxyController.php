@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class ApiProxyController extends Controller
 {
-    protected $targetUrl = 'https://getjustvital.com/api';
+    protected $targetUrl = 'https://app.getjustvital.com/api';
 
     public function proxyRequest(Request $request, $path = '')
     {
@@ -212,7 +212,17 @@ class ApiProxyController extends Controller
                 };
             }
 
-            return $response->body();
+            // Parse the response body as JSON
+            $responseData = json_decode($response->body(), true);
+
+            // If JSON parsing fails, return the original response body with JSON content type
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return response($response->body(), $response->status())
+                    ->header('Content-Type', 'application/json');
+            }
+
+            // Return the parsed JSON data as a proper JSON response
+            return response()->json($responseData, $response->status());
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Proxy error',
