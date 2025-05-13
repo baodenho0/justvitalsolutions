@@ -33,7 +33,7 @@
 
                         @guest
                             <li>
-                                <a href="{{ route('login') }}">Login</a>
+                                <a href="https://app.getjustvital.com/login">Login</a>
                             </li>
                         @else
                             <li>

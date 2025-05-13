@@ -73,7 +73,7 @@
                 <hr>
 
                 <!-- Comments Section -->
-                <div class="comments">
+                {{-- <div class="comments">
                     <h5 class="uppercase mb32">{{ $post->comments->count() }} {{ Str::plural('Comment', $post->comments->count()) }}</h5>
 
                     @if($post->comments->count() > 0)
@@ -226,7 +226,7 @@
                         </div>
                         @endauth
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Related Posts -->
                 @if($relatedPosts->count() > 0)
