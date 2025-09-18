@@ -71,8 +71,7 @@ class BlogPostController extends Controller
 
         // Handle featured image upload
         if ($request->hasFile('featured_image')) {
-            $path = $request->file('featured_image')->store('blog', 'public');
-            $post->featured_image = $path;
+            $post->featured_image = $this->uploadImage($request->file('featured_image'), 'blog');
         }
 
         $post->user()->associate(Auth::user());
@@ -137,11 +136,10 @@ class BlogPostController extends Controller
         if ($request->hasFile('featured_image')) {
             // Delete old image if exists
             if ($post->featured_image) {
-                Storage::disk('public')->delete($post->featured_image);
+                //Storage::disk('public')->delete($post->featured_image);
             }
 
-            $path = $request->file('featured_image')->store('blog', 'public');
-            $post->featured_image = $path;
+            $post->featured_image = $this->uploadImage($request->file('featured_image'), 'blog');
         }
 
         $post->save();
@@ -164,7 +162,7 @@ class BlogPostController extends Controller
     {
         // Delete featured image if exists
         if ($post->featured_image) {
-            Storage::disk('public')->delete($post->featured_image);
+            //Storage::disk('public')->delete($post->featured_image);
         }
 
         $post->delete();
