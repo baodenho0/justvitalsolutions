@@ -48,8 +48,7 @@ class ContactController extends Controller
 
         // Handle banner image upload
         if ($request->hasFile('banner_image')) {
-            $path = $request->file('banner_image')->store('public/contact');
-            $validated['banner_image'] = str_replace('public/', 'storage/', $path);
+            $validated['banner_image'] = $this->uploadImage($request->file('banner_image'), 'contact');
         }
 
         // Handle office hours
