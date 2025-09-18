@@ -46,8 +46,7 @@ class ServiceController extends Controller
 
         // Handle banner image upload
         if ($request->hasFile('banner_image')) {
-            $path = $request->file('banner_image')->store('public/services');
-            $validated['banner_image'] = str_replace('public/', 'storage/', $path);
+            $validated['banner_image'] = $this->uploadImage($request->file('banner_image'), 'services');
         }
 
         // Handle service items
@@ -63,8 +62,7 @@ class ServiceController extends Controller
 
                     // Handle service item image upload
                     if (isset($item['image']) && $item['image'] instanceof \Illuminate\Http\UploadedFile) {
-                        $path = $item['image']->store('public/services');
-                        $serviceItem['image'] = str_replace('public/', 'storage/', $path);
+                        $serviceItem['image'] = $this->uploadImage($item['image'], 'services');
                     } elseif (isset($item['existing_image'])) {
                         $serviceItem['image'] = $item['existing_image'];
                     }
