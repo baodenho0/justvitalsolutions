@@ -168,27 +168,24 @@
                                 @endforeach
                             @else
                                 <li>
-                                    <p class="lead">It's clear to see just how seriously these guys take design. I've never come across a template with the level of polish as this - and don't even get me started on the page builder, there is simply NO competition. Customer for life.</p>
+                                    <p class="lead">Just Vital has completely transformed how our clinic monitors patients. The platform is easy to use, and the support team is always ready to help. Our patients are healthier, and our staff works more efficiently.</p>
                                     <div class="quote-author">
-                                        <img alt="Avatar" src="{{ asset('img/avatar1.png') }}" />
                                         <h6 class="uppercase">Anna Thompson</h6>
-                                        <span>Themeforest Customer</span>
+                                        <span>Clinic Administrator</span>
                                     </div>
                                 </li>
                                 <li>
-                                    <p class="lead">I love the ease-of-use the builder provides - I can quickly test different combinations and experiment with font and color combinations to find that sweet spot. Kudos for the amazing support too, really quick turnaround!</p>
+                                    <p class="lead">Using Just Vital’s RPM system is incredibly simple. We can quickly track vital signs, spot potential issues early, and provide better care. The setup was smooth, and their team responds promptly to any questions.</p>
                                     <div class="quote-author">
-                                        <img alt="Avatar" src="{{ asset('img/avatar2.png') }}" />
                                         <h6 class="uppercase">Rick Dempsey</h6>
-                                        <span>Themeforest Customer</span>
+                                        <span>Nurse Practitioner</span>
                                     </div>
                                 </li>
                                 <li>
-                                    <p class="lead">A fine example of atomic design brought to life. As a seasoned template user, I really appreciate the consistent styling for all common tags, it makes customising the sections that much easier. 5 stars as always for an amazing template.</p>
+                                    <p class="lead">Just Vital makes chronic care management effortless. Everything integrates seamlessly into our workflow, helping us stay on top of patient health and improve outcomes. Truly a reliable solution for any clinic.</p>
                                     <div class="quote-author">
-                                        <img alt="Avatar" src="{{ asset('img/avatar3.png') }}" />
                                         <h6 class="uppercase">Gill Sans</h6>
-                                        <span>Themeforest Customer</span>
+                                        <span>Physician</span>
                                     </div>
                                 </li>
                             @endif
