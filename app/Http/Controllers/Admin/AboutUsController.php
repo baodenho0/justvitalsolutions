@@ -44,8 +44,7 @@ class AboutUsController extends Controller
 
         // Handle banner image upload
         if ($request->hasFile('banner_image')) {
-            $path = $request->file('banner_image')->store('public/about-us');
-            $validated['banner_image'] = str_replace('public/', 'storage/', $path);
+            $validated['banner_image'] = $this->uploadImage($request->file('banner_image'), 'about-us');
         }
 
         // Handle skills
@@ -75,8 +74,7 @@ class AboutUsController extends Controller
 
                     // Handle team member image upload
                     if (isset($member['image']) && $member['image'] instanceof \Illuminate\Http\UploadedFile) {
-                        $path = $member['image']->store('public/team');
-                        $teamMember['image'] = str_replace('public/', 'storage/', $path);
+                        $teamMember['image'] = $this->uploadImage($member['image'], 'team');
                     } elseif (isset($member['existing_image'])) {
                         $teamMember['image'] = $member['existing_image'];
                     }
