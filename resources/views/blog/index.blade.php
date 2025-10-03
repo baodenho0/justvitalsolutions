@@ -3,7 +3,7 @@
 @section('content')
 <section class="page-title page-title-4 image-bg overlay parallax">
     <div class="background-image-holder">
-        <img alt="Background Image" class="background-image" src="{{ asset('img/home10.jpg') }}" />
+        <img alt="Background Image" class="background-image" src="{{ asset(setting('blog_banner')) }}" />
     </div>
     <div class="container">
         <div class="row">
