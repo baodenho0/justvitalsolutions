@@ -3,11 +3,7 @@
 @section('content')
 <section class="page-title page-title-4 image-bg overlay parallax">
     <div class="background-image-holder">
-        @if($category->banner_image)
-            <img alt="Background Image" class="background-image" src="{{ asset($contact->banner_image) }}" />
-        @else
-            <img alt="Background Image" class="background-image" src="{{ asset('img/home10.jpg') }}" />
-        @endif
+        <img alt="Background Image" class="background-image" src="{{ asset(setting('blog_banner')) }}" />
     </div>
     <div class="container">
         <div class="row">
