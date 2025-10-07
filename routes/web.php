@@ -34,8 +34,8 @@ Route::middleware('guest')->group(function () {
     Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
 
     // Registration Routes
-    Route::get('register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
+    // Route::get('register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
+    // Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
 
     // Password Reset Routes
     Route::get('password/reset', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
